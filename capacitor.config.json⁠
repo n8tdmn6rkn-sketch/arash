@@ -1,11 +1,5 @@
 {
-  "appId": "com.arash.app",
-  "appName": "arash",
-  "webDir": "dist",
-  "bundledWebRuntime": false,
-  "plugins": {
-    "SplashScreen": {
-      "launchShowDuration": 0
-    }
-  }
+  "appId": "com.mycompany.myapp",
+  "appName": "ArashApp",
+  "webDir": "."
 }
