@@ -1,0 +1,46 @@
+name: Build IPA
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+    
+    - name: Install npm dependencies
+      run: npm install
+    
+    - name: Sync Capacitor
+      run: npx cap sync ios
+    
+    - name: Build unsigned IPA
+      run: |
+        xcodebuild -workspace ios/App/App.xcworkspace \
+          -scheme App \
+          -configuration Release \
+          -derivedDataPath build \
+          CODE_SIGN_IDENTITY="" \
+          CODE_SIGNING_REQUIRED=NO \
+          archive -archivePath build/app.xcarchive
+    
+    - name: Export IPA
+      run: |
+        mkdir -p Payload
+        cp -r build/app.xcarchive/Products/Applications/*.app Payload/
+        zip -r -y app-unsigned.ipa Payload/
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: unsigned-ipa
+        path: app-unsigned.ipa
