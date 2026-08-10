@@ -38,17 +38,26 @@ body{font-family:"Segoe UI",Tahoma,sans-serif;background:linear-gradient(135deg,
 .container{max-width:600px;margin:auto}
 .box{background:#fff;border-radius:12px;padding:20px;box-shadow:0 8px 32px rgba(0,0,0,.1);margin-bottom:20px}
 h1{text-align:center;color:#667eea;font-size:24px;margin-bottom:15px}
-.clock{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:8px;padding:10px;text-align:center;margin-bottom:15px}
-.clock-label{font-size:10px;opacity:.8;margin-bottom:3px}.clock-time{font-size:22px;font-weight:bold;font-family:"Courier New",monospace;margin-bottom:3px}.clock-date{font-size:10px;line-height:1.4}
+.clock{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:10px;padding:8px 12px;text-align:center;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.clock-label{font-size:9px;opacity:.8}.clock-time{font-size:17px;font-weight:bold;font-family:"Courier New",monospace}.clock-date{font-size:9px;line-height:1.3}
 .buttons{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:15px}
 button{border:0;padding:10px 8px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;transition:.2s}
 button:disabled{background:#95a5a6!important;color:#fff;cursor:not-allowed;transform:none!important;box-shadow:none!important}
 .btn-in{background:#27ae60;color:#fff}.btn-out{background:#e74c3c;color:#fff}.btn-leave{background:#3498db;color:#fff}
 .btn-in:hover,.btn-out:hover,.btn-leave:hover{transform:translateY(-2px)}
-.total-box{display:none;background:#ecf0f1;border-right:4px solid #667eea;padding:12px 15px;border-radius:6px;margin-bottom:15px}.total-box.show{display:block}
-.total-label{font-size:12px;color:#7f8c8d;margin-bottom:5px;text-align:center}.total-value{font-size:18px;font-weight:bold;color:#667eea;text-align:center}
+.total-box{display:none;background:#fff;border:1px solid #e6e9f0;box-shadow:0 4px 14px rgba(102,126,234,.1);padding:14px 16px;border-radius:10px;margin-bottom:15px}.total-box.show{display:block}
+.total-label{font-size:12px;color:#7f8c8d;margin-bottom:8px;text-align:center;font-weight:700;letter-spacing:.3px}
+.total-table{width:100%;border-collapse:collapse}
+.total-table tr{border-bottom:1px solid #f0f2f7}.total-table tr:last-child{border-bottom:none}
+.total-table td{padding:9px 4px;font-size:13.5px;color:#4a5568}
+.total-table td.t-label{text-align:right}
+.total-table td.t-value{text-align:left;font-weight:800;color:#667eea;font-family:"Courier New",monospace}
+.total-table tr.leave-row td.t-label,.total-table tr.leave-row td.t-value{color:#e74c3c}
 .summary-title{font-size:16px;font-weight:bold;color:#667eea;text-align:center;margin-bottom:8px}
 .summary-row{font-size:14px;color:#2d3748;text-align:center;margin:4px 0;line-height:1.8}
+.list-filter{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-bottom:10px}
+.list-filter button{background:#ecf0f1;color:#5a6472;padding:8px 4px;font-size:11.5px;border-radius:6px}
+.list-filter button.active{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
 .list{margin-bottom:15px;max-height:380px;overflow-y:auto;border:1px solid #ecf0f1;border-radius:6px;padding:10px}.empty{text-align:center;color:#95a5a6;padding:20px;font-size:14px}
 .day-group{margin-bottom:15px}.day-header{background:#f8f9fa;padding:8px 12px;border-radius:4px;font-weight:600;font-size:13px;margin-bottom:8px;display:flex;justify-content:space-between;gap:8px;align-items:center}
 .day-total-badge,.review-day-badge{background:#e8f4f8;color:#0066cc;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:500}
@@ -70,7 +79,7 @@ button:disabled{background:#95a5a6!important;color:#fff;cursor:not-allowed;trans
 .edit-form{display:flex;flex-direction:column;gap:10px}.edit-form label{font-size:12px;font-weight:bold;color:#555}.edit-form input{padding:8px;border:1px solid #ccc;border-radius:4px;font-size:14px}.edit-form-buttons{display:flex;gap:8px;margin-top:10px}.btn-save-edit{background:#27ae60;color:#fff;flex:1}.btn-cancel-edit{background:#95a5a6;color:#fff;flex:1}
 .footer-text{text-align:center;color:rgba(255,255,255,.85);font-size:13px;margin-top:15px;font-weight:bold}.footer-copyright{text-align:center;color:rgba(255,255,255,.6);font-size:11px;margin-top:4px;line-height:1.5}
 .progress-bar{width:100%;height:4px;background:#ecf0f1;border-radius:2px;margin-top:10px;display:none;overflow:hidden}.progress-bar.show{display:block}.progress-fill{height:100%;background:linear-gradient(90deg,#667eea,#764ba2);width:0%;transition:.2s}
-.status{font-size:11px;color:#718096;text-align:center;margin:4px 0 10px}
+.status{font-size:19px;font-weight:800;color:#667eea;text-align:center;margin:2px 0 16px;letter-spacing:.2px}
 
 /* استایل‌های Onboarding/Intro */
 .intro-overlay {
@@ -192,72 +201,7 @@ button:disabled{background:#95a5a6!important;color:#fff;cursor:not-allowed;trans
 }
 
 @media(max-width:430px){.box{padding:14px}.buttons{gap:5px}.day-header,.review-day-header{align-items:flex-start;flex-direction:column}.item{align-items:flex-start}.item-actions{justify-content:flex-start}}
-
-
-/* ===== DARK MODE ===== */
-:root{--bg-primary:#fff;--bg-secondary:#f8f9fa;--text-primary:#2d3748;--text-secondary:#666;--border:#e0e0e0;--success:#4caf50;--danger:#f44336;--warning:#ff9800}
-html.dark-mode{--bg-primary:#1a1a1a;--bg-secondary:#2d2d2d;--text-primary:#e0e0e0;--text-secondary:#b0b0b0;--border:#444}
-body{background-color:var(--bg-primary);color:var(--text-primary);transition:all 0.3s}
-.day-group{background:var(--bg-secondary);border-color:var(--border)}
-.item{background:var(--bg-secondary);border-color:var(--border)}
-.modal{background:var(--bg-primary);color:var(--text-primary);border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,0.3);max-width:90vw;max-height:90vh;overflow-y:auto}
-input,select,textarea{background:var(--bg-secondary);color:var(--text-primary);border-color:var(--border)}
-
-/* ===== TOAST ===== */
-.toast{position:fixed;padding:12px 16px;border-radius:6px;margin-bottom:10px;animation:slideIn 0.3s;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.15);z-index:9999}
-.toast.success{background:#4caf50;color:#fff}
-.toast.error{background:#f44336;color:#fff}
-.toast.info{background:#2196F3;color:#fff}
-.toast.warning{background:#ff9800;color:#fff}
-@keyframes slideIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
-@keyframes slideOut{from{transform:translateX(0);opacity:1}to{transform:translateX(400px);opacity:0}}
-
-/* ===== CONFIRMATION DIALOG ===== */
-#confirmOverlay{display:none}
-#confirmOverlay.show{display:flex}
-.btn-primary{background:#667eea;color:#fff;padding:10px 20px;border:none;border-radius:6px;cursor:pointer}
-.btn-secondary{background:#999;color:#fff;padding:10px 20px;border:none;border-radius:6px;cursor:pointer}
-.btn-icon{background:transparent;border:none;cursor:pointer;font-size:20px;padding:8px;border-radius:6px}
-
-/* ===== LOADING STATE ===== */
-.spinner{border:3px solid rgba(0,0,0,0.1);border-top:3px solid #667eea;border-radius:50%;width:20px;height:20px;animation:spin 1s linear infinite}
-@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-
-/* ===== RESPONSIVE ===== */
-@media(max-width:768px){
-  .modal{width:90%!important;max-height:80vh!important}
-  .btn{padding:8px 12px!important;font-size:13px!important}
-  .day-header{flex-direction:column;align-items:flex-start}
-  .item{flex-direction:column}
-}
-
-@media(max-width:480px){
-  .modal{width:95%!important}
-  .buttons{flex-direction:column}
-  .buttons button{width:100%}
-  .item-actions{flex-wrap:wrap}
-}
-
-/* ===== CHARTS ===== */
-#avgChart,#leaveChart{max-width:100%;height:300px!important}
-
-/* ===== VALIDATION ERRORS ===== */
-.error-field{border:2px solid #f44336!important;background:#ffebee!important}
-.error-message{color:#f44336;font-size:12px;margin-top:4px}
-.btn{background:#667eea;color:#fff;padding:10px 15px;border:none;border-radius:6px;cursor:pointer;font-size:14px;transition:all 0.3s}
-.btn:hover{opacity:0.8;transform:translateY(-2px)}
-.btn:active{transform:translateY(0)}
-.btn-close{background:none;border:none;font-size:24px;cursor:pointer;padding:0;width:30px;height:30px;display:flex;align-items:center;justify-content:center}
-.btn-close:hover{background:rgba(0,0,0,0.1);border-radius:50%}
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-<!-- PWA CONFIGURATION FOR IOS & ANDROID -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="دفتر کار">
-<link rel="apple-touch-icon" href="icon-192.png">
-<link rel="manifest" href="manifest.json">
-
 </head>
 <body>
 
@@ -305,15 +249,20 @@ input,select,textarea{background:var(--bg-secondary);color:var(--text-primary);b
 
 <div class="container">
 <div class="box">
-<h1>⏱️ دفتر کار</h1>
-<div class="clock"><div class="clock-label">ساعت فعلی</div><div class="clock-time" id="clockTime">00:00:00</div><div class="clock-date" id="clockDate">...</div></div>
+<div class="status" id="statusText"></div>
+<div class="clock"><div><div class="clock-label">ساعت فعلی</div><div class="clock-time" id="clockTime">00:00:00</div></div><div class="clock-date" id="clockDate">...</div></div>
 <div class="buttons">
 <button class="btn-in" id="btnIn">✅ ورود</button>
 <button class="btn-out" id="btnOut">❌ خروج</button>
 <button class="btn-leave" id="btnLeave">🏖️ مرخصی</button>
 </div>
-<div class="status" id="statusText"></div>
 <div class="total-box" id="totalBox"><div class="total-label">مجموع کارکرد و مرخصی</div><div class="total-value" id="totalValue"></div></div>
+<div class="list-filter" id="listFilter">
+<button type="button" data-range="today" class="active">امروز</button>
+<button type="button" data-range="week">هفته اخیر</button>
+<button type="button" data-range="month">ماه اخیر</button>
+<button type="button" data-range="all">کل آمار</button>
+</div>
 <div class="list" id="list"><div class="empty">هنوز ثبتی انجام نشده است</div></div>
 
 <!-- منوی مخفی ثبت دستی -->
@@ -371,22 +320,34 @@ input,select,textarea{background:var(--bg-secondary);color:var(--text-primary);b
 <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
 </div>
 <div class="pdf-button-group">
-<button class="btn-review" id="statsBtn" class="btn" style="background:#4caf50;color:#fff;padding:10px 15px;border:none;border-radius:6px;cursor:pointer;font-size:14px;margin-right:5px">📊 آمار</button>
-<button id="chartsBtn" class="btn" style="background:#2196F3;color:#fff;padding:10px 15px;border:none;border-radius:6px;cursor:pointer;font-size:14px;margin-right:5px">📈 نمودار</button>
-<button id="darkModeBtn" class="btn" style="background:#ff9800;color:#fff;padding:10px 15px;border:none;border-radius:6px;cursor:pointer;font-size:14px;margin-right:5px">🌙</button>
-<button id="reviewBtn">📊 مشاهده گزارش کامل</button>
+<button class="btn-review" id="reviewBtn">📊 مشاهده گزارش کامل</button>
 <button class="btn-pdf" id="pdfBtn">📄 دریافت گزارش PDF</button>
-<button class="btn-clear" id="clearBtn">🗑️ پاک کردن همه</button>
+<button class="btn-clear" id="clearBtn">🗑️ پاک کردن ثبت‌ها</button>
 </div>
 </div>
-<div class="footer-text">برنامه‌نویسی و طراحی توسط آرش شاهرخ</div>
 <div class="footer-copyright">Designed &amp; Developed by Arash Shahrokh<br>Copyright (c) <span id="footerYear"></span> Arash Shahrokh. All rights reserved.</div>
+<div class="footer-text">برنامه‌نویسی و طراحی توسط: آرش شاهرخ (نسخه تست ورژن ۱)</div>
 </div>
 
 <div class="review-overlay" id="reviewOverlay">
 <div class="review-panel">
 <div class="review-header"><h2 id="reviewModalTitle">📊 گزارش کامل ثبت‌ها</h2><button class="review-close" id="reviewClose">✕</button></div>
 <div class="review-grand-total" id="reviewGrandTotal"></div><div class="review-body" id="reviewBody"></div>
+</div>
+</div>
+
+<div class="review-overlay" id="clearOverlay">
+<div class="review-panel" style="max-width:360px">
+<div class="review-header"><h2>🗑️ پاک کردن ثبت‌ها</h2><button class="review-close" id="clearClose">✕</button></div>
+<div class="review-body">
+<div style="font-size:13px;color:#4a5568;margin-bottom:14px;text-align:center">کدوم بازه پاک بشه؟</div>
+<div style="display:grid;gap:10px">
+<button type="button" class="clear-opt" data-scope="today" style="background:#f0f2f7;color:#2d3748;padding:12px;border-radius:8px;font-size:14px;font-weight:600">آخرین روز (امروز)</button>
+<button type="button" class="clear-opt" data-scope="week" style="background:#f0f2f7;color:#2d3748;padding:12px;border-radius:8px;font-size:14px;font-weight:600">هفته اخیر</button>
+<button type="button" class="clear-opt" data-scope="month" style="background:#f0f2f7;color:#2d3748;padding:12px;border-radius:8px;font-size:14px;font-weight:600">ماه اخیر</button>
+<button type="button" class="clear-opt" data-scope="all" style="background:#fdecea;color:#e74c3c;padding:12px;border-radius:8px;font-size:14px;font-weight:700">کل داده‌ها</button>
+</div>
+</div>
 </div>
 </div>
 
@@ -518,7 +479,13 @@ function getState() {
             continue;
         }
         if(e.type==="in"){
-            if(open) invalid=true;
+            // ورود ناقصِ روز قبل نباید جلوی شروع روز جدید را بگیرد.
+            // خروجِ روز بعد همچنان می‌تواند شیفت شب را ببندد.
+            if(open){
+                const openDay=getDateKey(new Date(open.timestamp));
+                const currentDay=getDateKey(new Date(e.timestamp));
+                if(openDay===currentDay) invalid=true;
+            }
             open=e;
         } else if(e.type==="out"){
             if(!open) invalid=true;
@@ -545,17 +512,44 @@ function validateCandidate(candidate, excludedId=null) {
         return null;
     }
     if(dayHasLeave(dateKey,excludedId)) return "برای این روز مرخصی ثبت شده است.";
-    const others=entries.filter(e=>e.id!==excludedId).concat(candidate).sort((a,b)=>a.timestamp-b.timestamp);
+
+    // اعتبارسنجی ورود/خروج بر اساس همان روز انجام می‌شود؛
+    // رکورد ناقصِ یک روز قدیمی نباید مانع ثبت روز جدید شود.
+    const sameDay=entries
+        .filter(e=>e.id!==excludedId && getDateKey(new Date(e.timestamp))===dateKey)
+        .concat(candidate)
+        .sort((a,b)=>a.timestamp-b.timestamp);
     let open=null;
-    for(const e of others){
-        if(e.type==="leave"){ if(open) return "رکوردها با مرخصی تداخل دارند."; continue; }
+    for(const e of sameDay){
+        if(e.type==="leave") continue;
         if(e.type==="in"){
-            if(open) return "دو ورود پشت‌سرهم یا ورودِ باز وجود دارد.";
+            if(open) return "دو ورود پشت‌سرهم یا ورودِ باز در همین روز وجود دارد.";
             open=e;
-        } else {
-            if(!open) return "خروج بدون ورود قبلی مجاز نیست.";
-            if(e.timestamp<=open.timestamp) return "زمان خروج باید بعد از ورود باشد.";
-            open=null;
+        } else if(e.type==="out"){
+            if(!open){
+                // اگر ورود همان روز وجود ندارد، فقط در صورت وجود یک «ورود باز» واقعی
+                // از روز قبل، خروج را به‌عنوان پایان شیفت عبوری از نیمه‌شب می‌پذیریم.
+                const priorEntries=entries
+                    .filter(x=>x.id!==excludedId && x.timestamp<e.timestamp)
+                    .sort((a,b)=>a.timestamp-b.timestamp);
+                let priorOpen=null;
+                for(const prev of priorEntries){
+                    if(prev.type==="in"){
+                        if(priorOpen){
+                            const od=getDateKey(new Date(priorOpen.timestamp));
+                            const pd=getDateKey(new Date(prev.timestamp));
+                            if(od===pd) continue;
+                        }
+                        priorOpen=prev;
+                    } else if(prev.type==="out" && priorOpen){
+                        priorOpen=null;
+                    }
+                }
+                if(!priorOpen) return "خروج بدون ورود قبلی مجاز نیست.";
+            } else {
+                if(e.timestamp<=open.timestamp) return "زمان خروج باید بعد از ورود باشد.";
+                open=null;
+            }
         }
     }
     return null;
@@ -593,12 +587,12 @@ function isJalaliLeap(y){
 // برچسب‌های هوشمند برای ورود/خروج (تنها برای non-virtual items)
 function getLabelForItem(item, dayEntries) {
     if (!item || !dayEntries) return '';
-
+    
     if (item.type === 'leave') return '🏖️ مرخصی';
-
+    
     const idx = dayEntries.findIndex(e => e.id === item.id && e.type === item.type && e.timestamp === item.timestamp);
     if (idx === -1) return item.type === 'in' ? '✅ ورود' : '❌ خروج';
-
+    
     if (item.type === 'in') {
         let inCount = 0;
         for (let i = 0; i < idx; i++) {
@@ -606,7 +600,7 @@ function getLabelForItem(item, dayEntries) {
         }
         return inCount === 0 ? '✅ ورود' : '✅ ورود مجدد';
     }
-
+    
     if (item.type === 'out') {
         const next = dayEntries.find((e, i) => i > idx && e.type === 'in' && !e.virtual);
         if (next) {
@@ -622,7 +616,7 @@ function getLabelForItem(item, dayEntries) {
         }
         return '❌ خروج';
     }
-
+    
     return item.type === 'in' ? '✅ ورود' : '❌ خروج';
 }
 
@@ -630,7 +624,7 @@ function getLabelForItem(item, dayEntries) {
 function setTodayDefault(){
     const now = new Date();
     const j = gregorianToJalali(now.getFullYear(), now.getMonth() + 1, now.getDate());
-
+    
     if ($("manualYear").children.length === 0) {
         for (let y = 1300; y <= 1450; y++) {
             const opt = document.createElement("option");
@@ -639,7 +633,7 @@ function setTodayDefault(){
             $("manualYear").appendChild(opt);
         }
     }
-
+    
     function populateDays() {
         const month = parseInt($("manualMonth").value);
         const year = parseInt($("manualYear").value);
@@ -652,15 +646,15 @@ function setTodayDefault(){
             $("manualDay").appendChild(opt);
         }
     }
-
+    
     $("manualYear").value = j.jy;
     $("manualMonth").value = j.jm;
     populateDays();
     $("manualDay").value = j.jd;
-
+    
     $("manualMonth").onchange = populateDays;
     $("manualYear").onchange = populateDays;
-
+    
     const h = String(now.getHours()).padStart(2, "0");
     const m = String(now.getMinutes()).padStart(2, "0");
     $("manualTime").value = `${h}:${m}`;
@@ -673,8 +667,26 @@ function calculateSessions(source=entries) {
     const ensure=k=>{if(!groups[k])groups[k]=[];if(!totals[k])totals[k]=0;if(!leaves[k])leaves[k]=0};
     for(const e of sorted){
         const d=new Date(e.timestamp), key=getDateKey(d); ensure(key);
-        if(e.type==="leave"){leaves[key]++;groups[key].push({...e,displayType:"leave"});continue}
-        if(e.type==="in"){ if(open) groups[key].push({...e,displayType:"invalid"}); else open=e; continue; }
+        if(e.type==="leave"){
+            leaves[key]++;
+            groups[key].push({...e,displayType:"leave"});
+            continue;
+        }
+        if(e.type==="in"){
+            if(open){
+                const openDay=getDateKey(new Date(open.timestamp));
+                // ورود جدید در روز بعد، ورود ناقص قبلی را خراب نمی‌کند.
+                // اما ورود دوم در همان روز همچنان نامعتبر است.
+                if(openDay===key){
+                    groups[key].push({...e,displayType:"invalid"});
+                    continue;
+                }
+                ensure(openDay);
+                groups[openDay].push({...open,displayType:"in",pending:true});
+            }
+            open=e;
+            continue;
+        }
         if(e.type==="out"){
             if(!open){groups[key].push({...e,displayType:"out",invalid:true});continue;}
             let start=new Date(open.timestamp), end=new Date(e.timestamp), first=true;
@@ -692,7 +704,9 @@ function calculateSessions(source=entries) {
     }
     if(open){
         const k=getDateKey(new Date(open.timestamp)); ensure(k);
-        groups[k].push({...open,displayType:"in",pending:true});
+        if(!groups[k].some(x=>x.id===open.id && x.type==="in")){
+            groups[k].push({...open,displayType:"in",pending:true});
+        }
     }
     return {groups,totals,leaves,open};
 }
@@ -704,21 +718,47 @@ function formatHours(ms){
     const min=Math.floor(ms/60000);
     return `${toPersianDigits(Math.floor(min/60))} ساعت و ${toPersianDigits(min%60)} دقیقه`;
 }
+function formatMinutes(min){
+    return `${toPersianDigits(Math.floor(min/60))} ساعت و ${toPersianDigits(min%60)} دقیقه`;
+}
 
 function updateButtons() {
     const state=getState(), today=getDateKey(new Date()), leave=dayHasLeave(today), activity=dayHasActivity(today);
     $("btnIn").disabled=!!state.invalid || !!leave || !!state.open;
     $("btnOut").disabled=!!state.invalid || !state.open || !!leave;
     $("btnLeave").disabled=!!state.invalid || !!leave || !!activity || !!state.open;
-    
-// ===== INIT =====
-initDarkMode();
-$("#statsBtn").onclick = openStats;
-$("#chartsBtn").onclick = openCharts;
-$("statusText").textContent=state.invalid?"⚠️ داده‌ها وضعیت ناسازگار دارند؛ از ویرایش/بازیابی معتبر استفاده کنید.":state.open?"🟢 وضعیت فعلی: در حال کار":"⚪ وضعیت فعلی: آماده ثبت ورود";
+    $("statusText").textContent=state.invalid?"⚠️ داده‌ها وضعیت ناسازگار دارند؛ از ویرایش/بازیابی معتبر استفاده کنید.":state.open?"🟢 وضعیت فعلی: در حال کار":"⚪ وضعیت فعلی: آماده ثبت ورود";
 }
 function clearElement(el){while(el.firstChild)el.removeChild(el.firstChild)}
 function textEl(tag,text,cls){const e=document.createElement(tag);if(cls)e.className=cls;e.textContent=text;return e}
+let listRange = "today";
+
+function isKeyInRange(key, range, todayDate, todayKey) {
+    if (range === "all") return true;
+    if (range === "today") return key === todayKey;
+    const day = new Date(key + "T00:00:00");
+    if (range === "week") {
+        const from = new Date(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate() - 6);
+        return day >= from && day <= todayDate;
+    }
+    if (range === "month") {
+        // «ماه اخیر» = ماه شمسی جاری، از روز ۱ تا آخر همان ماه.
+        // بازه بر اساس تقویم جلالی محاسبه می‌شود، نه ۳۰/۳۱ روزِ شناور میلادی.
+        const tj = gregorianToJalali(todayDate.getFullYear(), todayDate.getMonth()+1, todayDate.getDate());
+        const startJ = jalaliToGregorian(tj.jy, tj.jm, 1);
+        const from = new Date(startJ.gy, startJ.gm - 1, startJ.gd);
+
+        let nextJy = tj.jy, nextJm = tj.jm + 1;
+        if (nextJm > 12) { nextJm = 1; nextJy++; }
+        const nextStartJ = jalaliToGregorian(nextJy, nextJm, 1);
+        const nextStart = new Date(nextStartJ.gy, nextStartJ.gm - 1, nextStartJ.gd);
+        const to = new Date(nextStart.getFullYear(), nextStart.getMonth(), nextStart.getDate() - 1);
+
+        return day >= from && day <= to;
+    }
+    return true;
+}
+
 function render() {
     updateButtons();
     const list=$("list"), calc=calculateSessions();
@@ -730,13 +770,42 @@ function render() {
     }
     const keys=Array.from(new Set([...Object.keys(calc.groups),...entries.map(e=>getDateKey(new Date(e.timestamp)))]))
         .sort().reverse();
-    let grand=0, leaveCount=0, hourlyLeaveMinutes=0;
+    const now=new Date(), todayDate=new Date(now.getFullYear(),now.getMonth(),now.getDate()), todayKey=getDateKey(now);
+    // بازه آمار با فیلتر لیست یکی نیست:
+    // امروز = از روز اول ماه شمسی جاری تا امروز
+    // هفته اخیر = ۷ روز اخیر
+    // ماه اخیر = کل ماه شمسی جاری
+    // کل آمار = تمام داده‌ها
+    const summaryRange = listRange === "today" ? "monthToDate" : listRange;
+
+    function isKeyInSummaryRange(key){
+        if(summaryRange === "all") return true;
+        if(summaryRange === "month") return isKeyInRange(key,"month",todayDate,todayKey);
+        if(summaryRange === "week") return isKeyInRange(key,"week",todayDate,todayKey);
+        if(summaryRange === "monthToDate"){
+            const tj = gregorianToJalali(todayDate.getFullYear(),todayDate.getMonth()+1,todayDate.getDate());
+            const startJ = jalaliToGregorian(tj.jy,tj.jm,1);
+            const start = new Date(startJ.gy,startJ.gm-1,startJ.gd);
+            const day = new Date(key+"T00:00:00");
+            return day >= start && day <= todayDate;
+        }
+        return true;
+    }
+
+    let grand=0, leaveCount=0, hourlyLeaveMinutes=0, shown=0;
     for(const key of keys){
         const day=new Date(key+"T00:00:00"), items=(calc.groups[key]||[]).slice().sort((a,b)=>a.timestamp-b.timestamp);
-        const total=calc.totals[key]||0, leaves=calc.leaves[key]||0; grand+=total;leaveCount+=leaves;
+        const total=calc.totals[key]||0, leaves=calc.leaves[key]||0;
 
-        // محاسبه مرخصی ساعتی این روز
-        for (let i = 0; i < items.length; i++) {
+        // محاسبه خلاصه بر اساس دکمه انتخاب‌شده
+        const inSummaryRange=isKeyInSummaryRange(key);
+        if(inSummaryRange){
+            grand+=total;
+            leaveCount+=leaves;
+        }
+        
+        // محاسبه مرخصی ساعتی فقط برای بازه ماه اخیر
+        if(inSummaryRange) for (let i = 0; i < items.length; i++) {
             const item = items[i];
             if (item.type === 'out' && !item.virtual) {
                 const nextIn = items.find((e, idx) => idx > i && e.type === 'in' && !e.virtual);
@@ -747,7 +816,9 @@ function render() {
                 }
             }
         }
-
+        
+        if (!isKeyInRange(key, listRange, todayDate, todayKey)) continue;
+        shown++;
         const group=document.createElement("div");group.className="day-group";
         const header=document.createElement("div");header.className="day-header";
         header.append(textEl("span","📅 "+formatShamsiFull(day)));
@@ -781,77 +852,83 @@ function render() {
         }
         list.appendChild(group);
     }
-
+    if (shown === 0) {
+        const rangeLabel = listRange==="today" ? "امروز" : listRange==="week" ? "هفته اخیر" : listRange==="month" ? "ماه اخیر" : "این بازه";
+        list.appendChild(textEl("div", `📭 هیچ ثبتی برای ${rangeLabel} وجود ندارد`, "empty"));
+    }
+    
     // تشکیل خلاصه کارکردی
-    const totalMinutes = Math.floor(grand / 60000);  // تبدیل ms به دقیقه
+    const totalMinutes = Math.floor(grand / 60000);
     const h = Math.floor(totalMinutes / 60);
     const m = totalMinutes % 60;
     const hh = Math.floor(hourlyLeaveMinutes / 60);
     const mm = hourlyLeaveMinutes % 60;
-
+    
     const summaryHTML = `
-        <div class="summary-row">کل ساعات کاری : ${toPersianDigits(h)} ساعت ${toPersianDigits(m)} دقیقه</div>
-        <div class="summary-row">مرخصی ساعتی استفاده شده : ${toPersianDigits(hh)} ساعت</div>
-        <div class="summary-row">تعداد مرخصی روزانه : ${toPersianDigits(leaveCount)} روز کامل</div>
+        <table class="total-table">
+        <tr><td class="t-label">⏱️ کل ساعات کاری</td><td class="t-value">${toPersianDigits(h)} ساعت ${toPersianDigits(m)} دقیقه</td></tr>
+        <tr class="leave-row"><td class="t-label">🏖️ مرخصی ساعتی استفاده شده</td><td class="t-value">${toPersianDigits(hh)} ساعت</td></tr>
+        <tr class="leave-row"><td class="t-label">📅 تعداد مرخصی روزانه</td><td class="t-value">${toPersianDigits(leaveCount)} روز کامل</td></tr>
+        </table>
     `;
     $("totalValue").innerHTML = summaryHTML;
-
+    
     $("totalBox").classList.add("show");["clearBtn","pdfBtn","reviewBtn"].forEach(id=>$(id).classList.add("show"));
 }
 
 function openEditModal(id){
     const e=entries.find(x=>x.id===id);if(!e)return;
     editId=id;$("reviewModalTitle").textContent="✏️ ویرایش رکورد";$("reviewGrandTotal").style.display="none";clearElement($("reviewBody"));
-
+    
     const form=document.createElement("div");form.className="edit-form";
     const dl=textEl("label","تاریخ (شمسی):");
-
+    
     const pickerDiv=document.createElement("div");
     pickerDiv.className="jalali-picker";
     const ys=document.createElement("select");ys.id="editYear";
     const ms=document.createElement("select");ms.id="editMonth";
     const ds=document.createElement("select");ds.id="editDay";
     pickerDiv.append(ys,ms,ds);
-
+    
     form.append(dl,pickerDiv);
-
+    
     if(e.type!=="leave"){
         const tl=textEl("label","ساعت:");
         const ti=document.createElement("input");
         ti.type="time";ti.id="editTime";ti.value=e.time;
         form.append(tl,ti);
     }
-
+    
     const buttons=document.createElement("div");buttons.className="edit-form-buttons";
     const save=textEl("button","ذخیره تغییرات","btn-save-edit");save.onclick=saveEdit;
     const cancel=textEl("button","لغو","btn-cancel-edit");cancel.onclick=closeReview;
     buttons.append(save,cancel);form.append(buttons);$("reviewBody").appendChild(form);
-
+    
     const curDate = new Date(e.timestamp);
     const j = gregorianToJalali(curDate.getFullYear(), curDate.getMonth()+1, curDate.getDate());
     populateJalaliSelects("edit", j.jy, j.jm, j.jd);
-
+    
     $("reviewOverlay").classList.add("show");
 }
 function saveEdit(){
     const index=entries.findIndex(x=>x.id===editId);if(index<0)return;
-
+    
     const y=Number($("editYear").value), m=Number($("editMonth").value), d=Number($("editDay").value);
     if(!Number.isInteger(y)||!Number.isInteger(m)||!Number.isInteger(d)||d<1||d>jalaliMonthDays(y,m)){
         alert("لطفاً تاریخ شمسی معتبر را انتخاب کنید.");
         return;
     }
-
+    
     const g = jalaliToGregorian(y, m, d);
     let time=entries[index].time;
     if(entries[index].type!=="leave"){
         time=$("editTime").value;
         if(!isValidTime(time)){alert("ساعت نامعتبر است.");return;}
     }
-
+    
     const [hh,mm]=time.split(":").map(Number);
     const ts=new Date(g.gy, g.gm-1, g.gd, hh||0, mm||0, 0, 0).getTime();
-
+    
     const candidate={...entries[index],timestamp:ts,time};
     const err=validateCandidate(candidate,editId);if(err){alert("ویرایش مجاز نیست:\n"+err);return;}
     entries[index]=candidate;editId=null;closeReview();if(persist())render();
@@ -865,7 +942,7 @@ function openReview(){
         const day=new Date(key+"T00:00:00"), total=c.totals[key]||0, lc=c.leaves[key]||0;grand+=total;leaves+=lc;
         const box=document.createElement("div");box.className="review-day";
         const h=document.createElement("div");h.className="review-day-header";
-
+        
         // محاسبه ساعات مرخصی ساعتی این روز
         let hourlyLeaveMinutesToday = 0;
         let hourlyLeaveCount = 0;
@@ -883,18 +960,18 @@ function openReview(){
             }
         }
         hourlyLeaveMinutes += hourlyLeaveMinutesToday;
-
+        
         const dayLabel = `📅 ${formatShamsiFull(day)}`;
-        const hourlyStr = hourlyLeaveCount ? ` | مرخصی ساعتی: ${formatHours(hourlyLeaveMinutesToday)}` : "";
+        const hourlyStr = hourlyLeaveCount ? ` | مرخصی ساعتی: ${formatMinutes(hourlyLeaveMinutesToday)}` : "";
         const dayStats = `کارکرد: ${formatHours(total)}${lc ? ` | مرخصی کامل: ${toPersianDigits(lc)} روز` : ""}${hourlyStr}`;
-
+        
         h.append(textEl("span", dayLabel), textEl("span", dayStats, "review-day-badge"));
         box.appendChild(h);
-
+        
         for(let i = 0; i < dayItems.length; i++){
             const item = dayItems[i];
             const r=document.createElement("div");r.className="review-item";
-
+            
             let left = "";
             if (item.type === "leave") {
                 left = "🏖️ مرخصی روز کامل";
@@ -910,22 +987,23 @@ function openReview(){
                 }
             }
             left += item.type === "leave" ? "" : " - " + toPersianDigits(item.time || "");
-
+            
             r.appendChild(textEl("span", left));
             r.appendChild(textEl("span", item.duration !== undefined ? formatDuration(item.duration) : "-"));
             box.appendChild(r);
         }
         $("reviewBody").appendChild(box);
     }
-
+    
     // تشکیل خلاصه کارکردی برای گزارش
-    const totalMinutes = Math.floor(grand / 60000);  // تبدیل ms به دقیقه
+    const totalMinutes = Math.floor(grand / 60000);
     const h = Math.floor(totalMinutes / 60);
     const m = totalMinutes % 60;
     const hh = Math.floor(hourlyLeaveMinutes / 60);
     const mm = hourlyLeaveMinutes % 60;
-
+    
     const summaryHTML = `
+        <div class="summary-title">خلاصه کارکردی کلی</div>
         <div class="summary-row">کل ساعات کاری : ${toPersianDigits(h)} ساعت ${toPersianDigits(m)} دقیقه</div>
         <div class="summary-row">مرخصی ساعتی استفاده شده : ${toPersianDigits(hh)} ساعت</div>
         <div class="summary-row">تعداد مرخصی روزانه : ${toPersianDigits(leaves)} روز کامل</div>
@@ -968,7 +1046,7 @@ async function exportBackup(){
 function importBackup(){
     const input=$("backupFileInput");
     input.value="";
-
+    
     if (window.AndroidBridge && typeof AndroidBridge.pickFile === "function") {
         AndroidBridge.pickFile();
         return;
@@ -1050,6 +1128,9 @@ function openPDFOptions(){
 }
 function closePDFOptions(){$("pdfOptions").classList.remove("show");$("progressBar").classList.remove("show");$("progressFill").style.width="0%"}
 
+// کش تصاویر متن فارسی: هر رشته‌ی یکتا فقط یک بار رندر و فقط یک بار در PDF امبد می‌شه
+// (با پاس دادن alias به addImage)، به‌جای اینکه هر بار تکرار یک کلمه (مثلاً "ورود")
+// دوباره به‌صورت یک عکس جدا در فایل ذخیره بشه. این باعث کوچیک شدن چشمگیر حجم PDF می‌شه.
 const persianImgCache = new Map();
 let persianImgAliasSeq = 0;
 function persianTextToImage(text,fontSizeMm,bold=false){
@@ -1070,6 +1151,13 @@ function addPersianLineAsImage(doc,text,right,y,size,bold=false){
     const img=persianTextToImage(text,size,bold);doc.addImage(img.dataUrl,"PNG",right-img.widthMm,y,img.widthMm,img.heightMm,img.alias);return img.heightMm;
 }
 
+// نکته‌ی مهم: خودِ jsPDF (این نسخه‌ی بسته‌شده) یک موتور bidi استاندارد (بر پایه‌ی
+// یونیکد UAX#9) داخلش داره که روی *هر* doc.text() به‌صورت خودکار اجرا می‌شه و خودش
+// هم شکل‌دهی حروف عربی/فارسی (اتصال حروف + لیگاتور «لا») و هم ترتیب راست‌به‌چپ رو
+// انجام می‌ده. یه بار امتحان کردیم خودمون این کار رو دستی (shape+reverse) انجام بدیم
+// و نتیجه‌ش این بود که چون jsPDF دوباره همون کارو روی خروجیِ از-قبل-پردازش‌شده انجام
+// می‌داد، ترتیب کلمات به‌هم می‌ریخت (حروف داخل کلمه درست بود، ولی ترتیب کلمات نه).
+// راه‌حل درست همینه: متن خام و منطقی (بدون هیچ پردازشی) مستقیم بدیم به doc.text().
 function addPersianLine(doc,text,right,y,size,bold=false){
     try{
         doc.setFont("FarNazanin","normal");
@@ -1088,6 +1176,9 @@ function addPersianLine(doc,text,right,y,size,bold=false){
     }
 }
 
+// رشته‌هایی که فقط شامل رقم (فارسی یا لاتین)، «:» یا فاصله‌اند (زمان‌ها، مدت‌ها) نیازی به
+// شکل‌دهی حروف عربی/فارسی ندارن (فقط حروف به‌هم‌می‌چسبن، ارقام نه)، پس می‌تونیم اونا رو
+// به‌صورت متن واقعیِ قابل‌کپی و بسیار سبک (به‌جای عکس) توی PDF بنویسیم.
 function isPlainNumeric(str){ return /^[0-9۰-۹:\-\s]+$/.test(String(str)); }
 function containsPersianDigits(str){ return /[۰-۹]/.test(String(str)); }
 function addSelectableLine(doc,text,right,y,sizeMm,bold=false,fontState){
@@ -1139,7 +1230,7 @@ async function generatePDF(){
         let y=pageHeader(),grand=0,leaves=0,hourlyLeaveMinutes=0;
         for(let ki=0;ki<keys.length;ki++){
             const key=keys[ki], day=new Date(key+"T00:00:00"),items=c.groups[key].slice().sort((a,b)=>a.timestamp-b.timestamp),total=c.totals[key]||0,lc=c.leaves[key]||0;
-
+            
             // محاسبه ساعات مرخصی ساعتی این روز
             let hourlyLeaveMinutesToday = 0;
             let hourlyLeaveCount = 0;
@@ -1156,22 +1247,23 @@ async function generatePDF(){
                 }
             }
             hourlyLeaveMinutes += hourlyLeaveMinutesToday;
-
+            
             if(y>235){doc.addPage();y=pageHeader()}
             y+=addPersianLine(doc,"تاریخ: "+formatShamsiFull(day),RIGHT,y,4.5,true);y+=3;
-
-            // نمایش خلاصه روز
-            const hourlyStr = hourlyLeaveCount ? ` | مرخصی ساعتی: ${formatHours(hourlyLeaveMinutesToday)}` : "";
-            const dayStats = `کارکرد: ${formatHours(total)}${lc ? ` | مرخصی کامل: ${toPersianDigits(lc)} روز` : ""}${hourlyStr}`;
-            y+=addPersianLine(doc, dayStats, RIGHT, y, 3.5);y+=2;
-
+            
+            // نمایش خلاصه روز (هر آیتم در خط جدا، تا هنگام وجود مرخصی ساعتی خط «کارکرد» ناپدید نشه)
+            y+=addPersianLine(doc, `کارکرد: ${formatHours(total)}`, RIGHT, y, 3.5);y+=1;
+            if(lc){ y+=addPersianLine(doc, `مرخصی کامل: ${toPersianDigits(lc)} روز`, RIGHT, y, 3.5);y+=1; }
+            if(hourlyLeaveCount){ y+=addPersianLine(doc, `مرخصی ساعتی: ${formatMinutes(hourlyLeaveMinutesToday)}`, RIGHT, y, 3.5);y+=1; }
+            y+=1;
+            
             const headers=[["شرح",196],["ساعت ثبت",130],["مدت",75]];
             for(const [txt,x] of headers){addPersianLine(doc,txt,x,y,2.8,true)}
             y+=5.5;
             for(let itemIdx = 0; itemIdx < items.length; itemIdx++){
                 const item = items[itemIdx];
                 if(y>270){doc.addPage();y=pageHeader();y+=addPersianLine(doc,"ادامه: "+formatShamsiFull(day),RIGHT,y,4,true);y+=4}
-
+                
                 let type="";
                 if (item.type === "leave") {
                     type = "🏖️ مرخصی روز کامل";
@@ -1186,32 +1278,32 @@ async function generatePDF(){
                         type = "🔴 خروج (پایان روز)";
                     }
                 }
-
+                
                 addPersianLine(doc,type,196,y,3.3);
-                if(item.time)addSelectableLine(doc,item.time,130,y,3.3,false,fontState);
+                if(item.time && item.type!=="leave")addSelectableLine(doc,item.time,130,y,3.3,false,fontState);
                 if(item.duration!==undefined)addSelectableLine(doc,formatDuration(item.duration),75,y,3.3,false,fontState);
                 doc.setFont("helvetica","normal");
                 y+=6;
             }
             grand+=total;leaves+=lc;
-            if(y>270){doc.addPage();y=pageHeader()}
-            y+=2; y+=addPersianLine(doc,`جمع ساعت این روز: ${formatHours(total)}${lc?` | مرخصی کامل: ${toPersianDigits(lc)} روز`:""}${hourlyLeaveCount ? ` | مرخصی ساعتی: ${formatHours(hourlyLeaveMinutesToday)}` : ""}`,RIGHT,y,3.4);y+=5;
+            y+=3;
             $("progressFill").style.width=((ki+1)/keys.length*100)+"%";await new Promise(r=>setTimeout(r,0));
         }
         if(y>255){doc.addPage();y=pageHeader()}
         doc.setDrawColor(120);doc.setLineWidth(.3);doc.line(LEFT,y,RIGHT,y);y+=4;
-
+        
         // خلاصه کارکردی کلی
-        const totalMinutes = Math.floor(grand / 60000);  // تبدیل ms به دقیقه
+        const totalMinutes = Math.floor(grand / 60000);
         const h = Math.floor(totalMinutes / 60);
         const m = totalMinutes % 60;
         const hh = Math.floor(hourlyLeaveMinutes / 60);
         const mm = hourlyLeaveMinutes % 60;
-
+        
+        y+=addPersianLine(doc,"خلاصه کارکردی کلی",RIGHT,y,6,true);y+=2;
         y+=addPersianLine(doc,`کل ساعات کاری : ${toPersianDigits(h)} ساعت ${toPersianDigits(m)} دقیقه`,RIGHT,y,4);y+=3;
         y+=addPersianLine(doc,`مرخصی ساعتی استفاده شده : ${toPersianDigits(hh)} ساعت`,RIGHT,y,4);y+=3;
         y+=addPersianLine(doc,`تعداد مرخصی روزانه : ${toPersianDigits(leaves)} روز کامل`,RIGHT,y,4);y+=8;
-
+        
         if(y>270){doc.addPage();y=pageHeader()}
         y+=addPersianLine(doc,"طراحی و برنامه‌نویسی توسط آرش شاهرخ",RIGHT,y,2.6);y+=5;
         doc.setFontSize(7);doc.setTextColor(130);doc.text("Designed & Developed by Arash Shahrokh",RIGHT,y,{align:"right"});y+=4;doc.text("Copyright (c) "+new Date().getFullYear()+" Arash Shahrokh. All rights reserved.",RIGHT,y,{align:"right"});doc.setTextColor(0);
@@ -1229,7 +1321,7 @@ async function generatePDF(){
 (function initOnboarding() {
     const INTRO_KEY = "mizkar_intro_seen";
     const overlay = $("introOverlay");
-
+    
     if (localStorage.getItem(INTRO_KEY) === "true") {
         if (overlay) overlay.remove();
         return;
@@ -1299,7 +1391,24 @@ async function generatePDF(){
 $("btnIn").onclick=()=>addEntry("in");$("btnOut").onclick=()=>addEntry("out");$("btnLeave").onclick=()=>addEntry("leave");
 $("backupExport").onclick=exportBackup;$("backupImport").onclick=importBackup;$("backupFileInput").onchange=e=>handleBackupFile(e.target.files[0]);
 $("reviewBtn").onclick=openReview;$("reviewClose").onclick=closeReview;$("pdfBtn").onclick=openPDFOptions;$("pdfCancel").onclick=closePDFOptions;$("pdfGenerate").onclick=generatePDF;
-$("clearBtn").onclick=()=>{if(confirm("آیا از پاک کردن تمامی ثبت‌ها اطمینان دارید؟")){entries=[];if(persist())render()}};
+$("clearBtn").onclick=()=>{$("clearOverlay").classList.add("show")};
+$("clearClose").onclick=()=>{$("clearOverlay").classList.remove("show")};
+$("clearOverlay").addEventListener("click",e=>{if(e.target===$("clearOverlay"))$("clearOverlay").classList.remove("show")});
+document.querySelectorAll(".clear-opt").forEach(btn=>{
+    btn.onclick=()=>{
+        const scope=btn.dataset.scope;
+        const labels={today:"امروز (آخرین روز)",week:"هفته اخیر",month:"ماه اخیر",all:"کل داده‌ها"};
+        if(!confirm(`آیا از پاک کردن «${labels[scope]}» اطمینان دارید؟ این عمل قابل بازگشت نیست.`)) return;
+        if(scope==="all"){
+            entries=[];
+        } else {
+            const now=new Date(), todayDate=new Date(now.getFullYear(),now.getMonth(),now.getDate()), todayKey=getDateKey(now);
+            entries=entries.filter(e=>!isKeyInRange(getDateKey(new Date(e.timestamp)), scope, todayDate, todayKey));
+        }
+        $("clearOverlay").classList.remove("show");
+        if(persist()) render();
+    };
+});
 $("reviewOverlay").addEventListener("click",e=>{if(e.target===$("reviewOverlay"))closeReview()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeReview();closePDFOptions()}});
 
@@ -1314,7 +1423,7 @@ $("manualSubmitBtn").onclick=()=>{
     const day=parseInt($("manualDay").value);
     const type=$("manualType").value;
     const time=type==="leave"?"00:00":$("manualTime").value;
-
+    
     if(isNaN(year)||isNaN(month)||isNaN(day)||day<1||day>31||month<1||month>12){
         alert("تاریخ وارد شده نامعتبر است.");
         return;
@@ -1323,19 +1432,19 @@ $("manualSubmitBtn").onclick=()=>{
         alert("ساعت وارد شده نامعتبر است.");
         return;
     }
-
+    
     const gDate=jalaliToGregorian(year,month,day);
     const d=new Date(gDate.gy,gDate.gm-1,gDate.gd);
     const [h,m]=time.split(":").map(Number);
     d.setHours(h,m,0,0);
-
+    
     const candidate={type,timestamp:d.getTime(),time};
     const err=validateCandidate(candidate);
     if(err){
         alert("خطا: "+err);
         return;
     }
-
+    
     candidate.id=Date.now()+Math.floor(Math.random()*1000);
     entries.push(candidate);
     if(persist()){
@@ -1353,336 +1462,15 @@ function updateClock(){
     $("clockDate").innerHTML="";$("clockDate").appendChild(document.createTextNode(formatShamsiFull(now)));
     const br=document.createElement("br"),span=document.createElement("span");span.style.cssText="font-size:11px;opacity:.8";span.textContent="("+now.toLocaleDateString("en-US",{year:"numeric",month:"short",day:"numeric"})+")";$("clockDate").append(br,span);
 }
+document.querySelectorAll("#listFilter button").forEach(btn=>{
+    btn.onclick=()=>{
+        listRange=btn.dataset.range;
+        document.querySelectorAll("#listFilter button").forEach(b=>b.classList.remove("active"));
+        btn.classList.add("active");
+        render();
+    };
+});
 $("footerYear").textContent=new Date().getFullYear();updateClock();setTodayDefault();render();setInterval(updateClock,1000);
-
-
-// ===== DARK MODE =====
-function toggleDarkMode(){
-    const isDark = document.documentElement.classList.toggle('dark-mode');
-    localStorage.setItem('darkMode', isDark ? '1' : '0');
-    $("darkModeBtn").textContent = isDark ? '☀️' : '🌙';
-}
-function initDarkMode(){
-    if(localStorage.getItem('darkMode')==='1'){
-        document.documentElement.classList.add('dark-mode');
-        $("darkModeBtn").textContent='☀️';
-    }
-}
-
-// ===== TOAST NOTIFICATIONS =====
-function showToast(message, type='info', duration=3000){
-    const container = $('toastContainer');
-    const toast = document.createElement('div');
-    toast.className = `toast ${type}`;
-    toast.textContent = message;
-    container.appendChild(toast);
-    setTimeout(()=>{
-        toast.style.animation='slideOut 0.3s';
-        setTimeout(()=>toast.remove(), 300);
-    }, duration);
-}
-
-// ===== CONFIRMATION =====
-let confirmResolve;
-function showConfirm(message){
-    return new Promise(resolve=>{
-        confirmResolve = resolve;
-        $('confirmMessage').textContent = message;
-        $('confirmOverlay').classList.add('show');
-    });
-}
-$('confirmOK').onclick=()=>{
-    $('confirmOverlay').classList.remove('show');
-    if(confirmResolve) confirmResolve(true);
-};
-$('confirmCancel').onclick=()=>{
-    $('confirmOverlay').classList.remove('show');
-    if(confirmResolve) confirmResolve(false);
-};
-
-// ===== VALIDATION =====
-function validateEntry(type, timestamp){
-    if(type==='out'){
-        const today = getDateKey(new Date());
-        const todayEntries = entries.filter(e=>getDateKey(new Date(e.timestamp))===today);
-        const inEntry = todayEntries.find(e=>e.type==='in' && e.timestamp < timestamp);
-        if(!inEntry){
-            showToast('❌ خروج بدون ورود!', 'error');
-            return false;
-        }
-        if(inEntry.timestamp > timestamp){
-            showToast('❌ خروج نمی‌تواند قبل‌تر از ورود باشد', 'error');
-            return false;
-        }
-    }
-    return true;
-}
-
-// ===== OVERTIME CALCULATION =====
-function calculateOvertime(minutes, standardHours=8){
-    const standardMinutes = standardHours * 60;
-    if(minutes > standardMinutes){
-        return minutes - standardMinutes;
-    }
-    return 0;
-}
-
-// ===== STATISTICS =====
-function openStats(){
-    const c = calculateSessions();
-    const keys = Object.keys(c.groups).sort();
-    let totalDays = keys.length;
-    let totalHours = 0;
-    let totalLeaves = 0;
-    let totalOvertime = 0;
-    let avgHours = 0;
-    
-    keys.forEach(key=>{
-        const minutes = c.totals[key] / 60000;
-        totalHours += minutes;
-        totalLeaves += c.leaves[key] || 0;
-        const overtime = calculateOvertime(minutes, 8);
-        totalOvertime += overtime;
-    });
-    
-    avgHours = totalDays > 0 ? totalHours / totalDays : 0;
-    
-    const h = Math.floor(totalHours / 60);
-    const m = totalHours % 60;
-    const oh = Math.floor(totalOvertime / 60);
-    const om = totalOvertime % 60;
-    
-    const statsHTML = `
-        <div style="background:#f0f7ff;padding:15px;border-radius:6px;margin-bottom:15px">
-            <div style="font-weight:bold;margin-bottom:10px">📊 خلاصه کلی</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px">
-                <div>کل ساعات: ${toPersianDigits(h)}س ${toPersianDigits(Math.round(m))}د</div>
-                <div>میانگین: ${toPersianDigits(Math.round(avgHours))}س</div>
-                <div>مرخصی: ${toPersianDigits(totalLeaves)}روز</div>
-                <div>اضافه‌کاری: ${toPersianDigits(oh)}س ${toPersianDigits(om)}د</div>
-            </div>
-        </div>
-        <div style="font-weight:bold;margin:15px 0">📈 آمار روزانه</div>
-        <div id="dailyStats" style="max-height:300px;overflow-y:auto"></div>
-    `;
-    
-    $('statsBody').innerHTML = statsHTML;
-    
-    // نمایش روزانه
-    const dailyDiv = $('dailyStats');
-    keys.slice(-30).reverse().forEach(key=>{
-        const day = new Date(key+'T00:00:00');
-        const minutes = c.totals[key] / 60000;
-        const h2 = Math.floor(minutes / 60);
-        const m2 = Math.round(minutes % 60);
-        const overtime = calculateOvertime(minutes, 8);
-        const oh2 = Math.floor(overtime / 60);
-        
-        const row = document.createElement('div');
-        row.style.cssText='padding:8px;border-bottom:1px solid #ddd;font-size:13px';
-        row.innerHTML=`
-            <div style="display:flex;justify-content:space-between">
-                <span>${formatShamsiFull(day)}</span>
-                <span>${toPersianDigits(h2)}س ${toPersianDigits(m2)}د${oh2>0?' + '+toPersianDigits(oh2)+'س اضافی':''}</span>
-            </div>
-        `;
-        dailyDiv.appendChild(row);
-    });
-    
-    $('statsOverlay').classList.add('show');
-}
-$('statsClose').onclick=()=>$('statsOverlay').classList.remove('show');
-
-// ===== CHARTS =====
-function openCharts(){
-    const c = calculateSessions();
-    const keys = Object.keys(c.groups).sort();
-    const last7Days = keys.slice(-7);
-    
-    // میانگین ساعات
-    const avgData = last7Days.map(key=>{
-        const minutes = c.totals[key] / 60000;
-        return Math.round(minutes);
-    });
-    
-    const labels = last7Days.map(key=>{
-        const date = new Date(key+'T00:00:00');
-        return date.getDate();
-    });
-    
-    // نمودار 1
-    if(window.avgChartInstance) window.avgChartInstance.destroy();
-    const ctx1 = $('avgChart').getContext('2d');
-    window.avgChartInstance = new Chart(ctx1, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'ساعات کاری',
-                data: avgData,
-                borderColor: '#667eea',
-                backgroundColor: 'rgba(102, 126, 234, 0.1)',
-                tension: 0.4
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {legend: {display: true}}
-        }
-    });
-    
-    // نمودار 2
-    const leaveData = last7Days.map(key=>c.leaves[key]||0);
-    if(window.leaveChartInstance) window.leaveChartInstance.destroy();
-    const ctx2 = $('leaveChart').getContext('2d');
-    window.leaveChartInstance = new Chart(ctx2, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'مرخصی (روز)',
-                data: leaveData,
-                backgroundColor: '#ff9800'
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {legend: {display: true}}
-        }
-    });
-    
-    $('chartsOverlay').classList.add('show');
-}
-$('chartsClose').onclick=()=>$('chartsOverlay').classList.remove('show');
-
-// ===== CSV EXPORT =====
-function exportCSV(){
-    const c = calculateSessions();
-    const keys = Object.keys(c.groups).sort();
-    
-    let csv = 'تاریخ\tنوع\tزمان\nمدت\n';
-    
-    keys.forEach(key=>{
-        const items = c.groups[key] || [];
-        items.forEach(item=>{
-            const date = formatShamsiFull(new Date(key+'T00:00:00'));
-            let type = item.type;
-            if(item.type==='leave') type='مرخصی';
-            else if(item.type==='in') type='ورود';
-            else type='خروج';
-            
-            const time = item.time || formatTime(new Date(item.timestamp));
-            const duration = item.duration ? formatDuration(item.duration) : '';
-            
-            csv += `${date}\t${type}\t${time}\t${duration}\n`;
-        });
-    });
-    
-    const blob = new Blob([csv], {type: 'text/csv'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `worklog-${new Date().toISOString().split('T')[0]}.csv`;
-    a.click();
-    showToast('✅ CSV صادرات شد', 'success');
-}
-
-// ===== OVERRIDE deleteEntry =====
-const originalDeleteEntry = deleteEntry;
-async function deleteEntry(id){
-    const confirmed = await showConfirm('آیا مطمئن هستید؟');
-    if(confirmed){
-        originalDeleteEntry(id);
-        showToast('✅ ورود حذف شد', 'success');
-    }
-}
-
-// ===== OVERRIDE addEntry =====
-const originalAddEntry = addEntry;
-function addEntry(type){
-    if(!validateEntry(type, Date.now())){
-        return;
-    }
-    originalAddEntry(type);
-    const typeLabel = type==='in'?'ورود':type==='out'?'خروج':'مرخصی';
-    showToast(`✅ ${typeLabel} ثبت شد`, 'success');
-}
-
-
-// Override functions با validation
-const _addEntry = addEntry;
-window.addEntry = function(type){
-    if(!validateEntry(type, Date.now())){
-        return;
-    }
-    _addEntry(type);
-    const typeLabel = type==='in'?'ورود':type==='out'?'خروج':'مرخصی';
-    showToast(`✅ ${typeLabel} ثبت شد`, 'success');
-};
-
-const _deleteEntry = deleteEntry;
-window.deleteEntry = async function(id){
-    const confirmed = await showConfirm('آیا مطمئن هستید؟');
-    if(confirmed){
-        _deleteEntry(id);
-        showToast('✅ ورود حذف شد', 'success');
-    }
-};</script>
-
-<div id="confirmOverlay" class="overlay">
-  <div class="modal" style="max-width:300px">
-    <div style="padding:20px">
-      <div style="font-size:16px;font-weight:bold;margin-bottom:15px;color:#2d3748">تأیید عملیات</div>
-      <div id="confirmMessage" style="margin-bottom:20px;color:#555"></div>
-      <div style="display:flex;gap:10px;justify-content:flex-end">
-        <button id="confirmCancel" class="btn-secondary" style="flex:1">لغو</button>
-        <button id="confirmOK" class="btn-primary" style="flex:1">تأیید</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="toastContainer" style="position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:10px"></div>
-
-<div id="statsOverlay" class="overlay">
-  <div class="modal" style="max-width:500px;max-height:80vh;overflow-y:auto">
-    <div style="padding:15px;border-bottom:1px solid #e0e0e0;display:flex;justify-content:space-between;align-items:center">
-      <div style="font-weight:bold;font-size:16px">📊 آمار و گزارش‌ها</div>
-      <button id="statsClose" class="btn-close">✕</button>
-    </div>
-    <div id="statsBody" style="padding:15px">درحال لود...</div>
-  </div>
-</div>
-
-<div id="chartsOverlay" class="overlay">
-  <div class="modal" style="max-width:800px;max-height:90vh">
-    <div style="padding:15px;border-bottom:1px solid #e0e0e0;display:flex;justify-content:space-between">
-      <div style="font-weight:bold;font-size:16px">📈 نمودارها</div>
-      <button id="chartsClose" class="btn-close">✕</button>
-    </div>
-    <div style="padding:15px;overflow-y:auto;max-height:calc(90vh - 60px)">
-      <div style="margin-bottom:30px">
-        <div style="font-weight:bold;margin-bottom:10px">میانگین ساعات روزانه</div>
-        <canvas id="avgChart" height="100"></canvas>
-      </div>
-      <div style="margin-bottom:30px">
-        <div style="font-weight:bold;margin-bottom:10px">توزیع مرخصی‌ها</div>
-        <canvas id="leaveChart" height="100"></canvas>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- PWA SERVICE WORKER REGISTRATION -->
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js')
-        .then(reg => console.log('PWA Service Worker Registered!', reg))
-        .catch(err => console.error('PWA Registration Error:', err));
-    });
-  }
 </script>
 </body>
-
 </html>
