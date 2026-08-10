@@ -1,0 +1,62 @@
+name: Build Unsigned IPA
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Create Web Distribution Folder
+        run: |
+          mkdir -p www
+          cp index.html www/ || true
+          cp -r *.js *.html *.css www/ 2>/dev/null || true
+
+      - name: Install Capacitor CLI
+        run: |
+          npm install @capacitor/core @capacitor/cli @capacitor/ios
+
+      - name: Initialize Capacitor App
+        run: |
+          npx cap init "ArashApp" "com.arash.app" --web-dir "www"
+
+      - name: Add iOS Platform
+        run: |
+          npx cap add ios
+          npx cap sync ios
+
+      - name: Archive iOS App
+        run: |
+          cd ios/App
+          xcodebuild archive \
+            -workspace App.xcworkspace \
+            -scheme App \
+            -configuration Release \
+            -archivePath build/App.xcarchive \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO
+
+      - name: Create Unsigned IPA
+        run: |
+          cd ios/App
+          mkdir -p Payload
+          cp -r build/App.xcarchive/Products/Applications/App.app Payload/
+          zip -r app-unsigned.ipa Payload
+
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: unsigned-app-ipa
+          path: ios/App/app-unsigned.ipa
