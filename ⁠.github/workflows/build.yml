@@ -20,25 +20,23 @@ jobs:
           node-version: 20
 
       - name: Install Dependencies
-        run: npm install
-
-      - name: Add iOS Platform
-        run: npx cap add ios
-
-      - name: Sync Web Assets to iOS
-        run: npx cap sync ios
+        run: |
+          npm install
+          npx cap add ios || true
+          npx cap sync ios
 
       - name: Build Unsigned IPA with Xcode
         run: |
           cd ios/App
-          xcodebuild -workspace App.xcworkspace \
-                     -scheme App \
-                     -configuration Release \
-                     -sdk iphoneos \
-                     CODE_SIGNING_ALLOWED=NO \
-                     CODE_SIGNING_REQUIRED=NO \
-                     -derivedDataPath build
-          
+          xcodebuild build \
+            -workspace App.xcworkspace \
+            -scheme App \
+            -configuration Release \
+            -sdk iphoneos \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            -derivedDataPath build
+
           mkdir -p Payload
           cp -r build/Build/Products/Release-iphoneos/App.app Payload/
           zip -r App-unsigned.ipa Payload
