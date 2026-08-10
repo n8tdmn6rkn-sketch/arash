@@ -38,7 +38,7 @@ jobs:
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO \
             PROVISIONING_PROFILE_SPECIFIER=""
-
+          
           mkdir -p Payload
           cp -r build/Release-iphoneos/App.app Payload/
           zip -r app-unsigned.ipa Payload
