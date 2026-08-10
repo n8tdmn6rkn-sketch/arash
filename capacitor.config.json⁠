@@ -1,0 +1,6 @@
+{
+  "appId": "com.arash.worklog",
+  "appName": "arash",
+  "webDir": ".",
+  "bundledWebRuntime": false
+}
