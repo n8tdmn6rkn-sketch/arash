@@ -18,10 +18,11 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install Dependencies
-        run: npm install
+      - name: Install Capacitor Dependencies
+        run: |
+          npm install @capacitor/core @capacitor/cli @capacitor/ios
 
-      - name: Add iOS Platform
+      - name: Add and Sync iOS Platform
         run: |
           npx cap add ios || true
           npx cap sync ios
